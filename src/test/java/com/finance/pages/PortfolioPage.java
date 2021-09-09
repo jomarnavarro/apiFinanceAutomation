@@ -1,15 +1,11 @@
 package com.finance.pages;
 
-import com.finance.pojo.StockInformation;
+import com.finance.pojo.frontEnd.StockInformation;
 import com.finance.utils.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.Locale;
 
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;

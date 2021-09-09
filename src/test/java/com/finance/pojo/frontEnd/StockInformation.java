@@ -1,4 +1,4 @@
-package com.finance.pojo;
+package com.finance.pojo.frontEnd;
 
 public class StockInformation {
 

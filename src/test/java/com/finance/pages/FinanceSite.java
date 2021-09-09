@@ -27,6 +27,9 @@ public class FinanceSite {
     public MenuPage getMenuPage() {
         return new MenuPage(this.driver);
     }
+    public SellPage getSellPage() {
+        return new SellPage(this.driver);
+    }
 
 
 }

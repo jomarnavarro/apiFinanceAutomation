@@ -1,10 +1,7 @@
 package com.finance.tests;
 
-import com.finance.pages.BuyPage;
-import com.finance.pages.LoginPage;
-import com.finance.pages.MenuPage;
-import com.finance.pages.PortfolioPage;
-import com.finance.pojo.StockInformation;
+import com.finance.pojo.api.Credentials;
+import com.finance.pojo.frontEnd.StockInformation;
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertTrue;
@@ -21,12 +18,11 @@ public class BuyTests extends BaseTest {
          * en la pagina de portafolio, verificar el mensaje de compra
          * en la pagina de portafolio, verificar que el simbolo tiene x acciones
          */
-        String user = "Pedro";
-        String password = "Pedro";
+
         String symbol = "MSFT";
         int numAcciones = 15;
-        financeSite.getLoginPage().ingresarCredenciales(user, password);
-        financeSite.getPortfolioPage().verificarMensaje("Welcome back " + user);
+        financeSite.getLoginPage().ingresarCredenciales(credentials.getUsername(), credentials.getPassword());
+        financeSite.getPortfolioPage().verificarMensaje("Welcome back " + credentials.getUsername());
         StockInformation siBefore = financeSite.getPortfolioPage().getStockInformation(symbol);
         financeSite.getMenuPage().clickBuy();
         financeSite.getBuyPage().comprarAcciones(symbol, numAcciones);
@@ -36,7 +32,22 @@ public class BuyTests extends BaseTest {
     }
 
     @Test
-    public void compraSinCredito(){
+    public void compraSinCredito() throws Exception {
+//        Setup
+
+        financeApi.loginEndpoint().login(credentials.getUsername(), credentials.getPassword());
+        financeApi.buyEndpoint().buyStock("MSFT", 30);
+        //Caso de prueba
+        String symbol = "AMZN";
+        int numAcciones = 1;
+        financeSite.getLoginPage().ingresarCredenciales(credentials.getUsername(), credentials.getPassword());
+        financeSite.getPortfolioPage().verificarMensaje("Welcome back " + credentials.getUsername());
+        StockInformation siBefore = financeSite.getPortfolioPage().getStockInformation(symbol);
+        financeSite.getMenuPage().clickBuy();
+        financeSite.getBuyPage().comprarAcciones(symbol, numAcciones);
+        financeSite.getPortfolioPage().verificarMensaje("short for this transaction.");
+//        StockInformation siAfter = financeSite.getPortfolioPage().getStockInformation(symbol);
+//        assertTrue(siBefore.getNumShares() + numAcciones == siAfter.getNumShares());
 
     }
 

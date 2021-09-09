@@ -36,4 +36,8 @@ public class MenuPage extends BasePage {
         this.buyLink.click();
 
     }
+
+    public void clickSell() {
+        this.sellLink.click();
+    }
 }
